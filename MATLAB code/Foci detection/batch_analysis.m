@@ -1,5 +1,3 @@
-% This m file will be used as an alternative implementation of my python
-% code for DAPI analysis. 
 % This file will be used to analyze and export DAPI result one frame at a
 % time.
 % Creator: Varshit Dusad
