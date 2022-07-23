@@ -1,0 +1,53 @@
+%% This file will explain how to use matlab gui and script file for DAPI analysis.
+
+FILE-1: {DAPI_exp_1.m}
+This file contains the script to run the GUI for DAPI analyzer. 
+INSTRUCTIONS:
+1. Load the m-file in MATLAB and click run
+2. A GUI screen will load up containing 4 axes regions.
+3. Insert the phase image by pressing the best focused phase file corresponding to the DAPI image you want to analyze.
+   3.1 I would recommend to use segmented phase file as an output of the cell profiler instead of raw phase file from microscope. The reason is that single cell resolution is better with segmented objects than native file and thus better results. In theory both will work fine, however.
+4. Insert the DAPI image you want to analyze using Insert DAPI button.
+5. Once both the phase and dapi image button are loaded you can start pressing Move Forward and Move Backward button.
+6. You will notice that in both Cropped DAPI image and Labelled Spots same image shows up except the bottom ones have red rectangles to identify spots.
+7. Basically what is happening is this:-
+  7.1 I use the phase image as a mask to identify the regions containing DAPI foci. Since DAPI foci cannot be outside the cell boundaries I make the intensity of all the regions outside of cells to be 0. 
+  7.2 Then, I set up a global threshold (thresh_1) to remove all the low intensity pixels. For example, if thresh_1 = 0.995, then this means only the pixels in top 0.005 percentile based on intenisty are kept. This calculation is done purely based on cumulative distribution of pixel intensities.
+  7.3 Thereafter, I crop the DAPI image into regions containing the cell. This is done based on the phase image file which helps in identifying the cell locations. When you click on Move forward or backward you are moving between different cells on the DAPI frame.
+  7.4 To identify foci another threshold thresh_2 is set. Thresh_2 is local to cell. The concept is similar to thresh_1. A cumulative distribution of pixel intensities of cropped image is used to identify pixel intensity corresponding to chosen threshold. Say if thresh_2 = 0.95, then only the pixels which have intensity in top 0.5 percentile will be conserved. This eventually leads to only leaving pixels which correspond to the spots.
+  7.5 The remaining two inputs area_min and area_max are used to limit the area of the spots. You can trace the changes by the change in rectangles in the image. If you raise area_min then small rectangles will start to vanish and if you lower area_max the larger rectangles will vanish. Vanishing here means that they will not be considered as spots.
+8. NOTE:- Every once in a while you will come across a cell in DAPI frame where no rectangle or spot is detected. It can happen for two reasons:-
+  8.1 DAPI images are heterogeneous in intensity due to staining. It is possible that while setting up the global threshold the image intensity of that region was below the global threshold and was set to zero and thus no spots could be detected.
+  8.2 The second reason follows from 7.5 above i.e. either the area_min was too high or area_max too low to miss out the relevant spots.
+  8.3 Finally, a less probable but possible reason for no spot could be thresh_2. Modify this as the last option (if no foci were detected and you want the foci to be detected).
+9. The values you set will dynamically change the results. Thus if you move from region 2 to region 3 and change the thresholds. If you move back from 3 to region 2 the results **may** change. (They may not change if your changes didn't make a significant difference).
+10. It is important to emphasize that there is no output option available from this gui. This gui is only there for you to find the reasonable thresholds which according to you work well for your use case.
+11. For outputs both as tiff file and csv file please use frame_analysis and batch_analysis.
+
+File:- {frame_analysis.m} [Analyze one frame at a time]
+1. In the beginning of this file 4 variables will be initialized which are thresh_1, thresh_2, area_min and area_max. Use the values you felt comfortable with after working on the GUI.
+2. There will be two pop up box appearance to choose the phase file and dapi file respectively.
+3. Finally another pop-up box will appear asking to choose directory where the results need to be saved.
+4. The results will be in the same format as I shared in my previous analysis for DAPI as accessible on google drive.
+
+File:- {batch_analysis.m} [Analyze all frames in one go]
+1. If you found parameters you believe generalize well for all the frames well then use this file.
+2. Similar to frame_analysis enter the parameters in the beginning of m-file and click run. 
+3. There will be 3 pop-up boxes - asking for directory for phase images, the directory for dapi images and directory for storing the results.
+4. All the results would be same as in frame_analysis except it would be processing all images in one go.
+
+--------------------------XXXXXXXXX-----------------------
+A NOTE ABOUT OUTPUT CSV
+In the CSV output file there will be 11 columns. 
+Column 1:- Cell Id
+Columns 2-5:- Coordinates of the corresponding cell
+Columns 6-9:- Coordinates of the foci detected
+Column 10:- Total cells in the dapi frame
+Coumns 11:- Foci detected in each cell id.
+
+The coordinate columns Columns 2-5 and 6-9 have following architecture.
+cell_coordinate_1, cell_coordinate_2, cell_coordinate_3 ,cell_coordinate_4
+=> Coordinate_1, 2 pixel coordinate of top left pixel of the cell (rectangle).
+=> Coordinate_3, 4 are actually not coordinates  but width and height of the rectangle. 
+=> This arrangement exist due to the peculiar nature of how MATLAB assigns bounding box to any segmented region.
+Read more about bounding box in matlab here:-https://in.mathworks.com/help/matlab/ref/polyshape.boundingbox.html
