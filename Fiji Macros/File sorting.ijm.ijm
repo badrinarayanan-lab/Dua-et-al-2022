@@ -1,7 +1,7 @@
-parent_dir = "E:/20190331/Deconvolved/"
-out_dir_mNeon = "C:/Users/LAB Admin/Desktop/mNeon/"
-out_dir_DAPI = "C:/Users/LAB Admin/Desktop/DAPI/"
-out_dir_Phase = "C:/Users/LAB Admin/Desktop/Phase/"
+parent_dir = ""
+out_dir_mNeon = ""
+out_dir_DAPI = ""
+out_dir_Phase = ""
 all_dir = getFileList(parent_dir);
 for(j=0;j<all_dir.length;j++){
 	directory = parent_dir+all_dir[j];
