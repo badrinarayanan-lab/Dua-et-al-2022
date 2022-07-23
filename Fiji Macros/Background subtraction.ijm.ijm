@@ -1,4 +1,4 @@
-parent_dir = "C:/Users/LAB Admin/Desktop/20190317/mNeon_MAX/"
+parent_dir = ""
 list = getFileList(parent_dir)
 for (i=0; i<list.length; i++){
 	open(parent_dir+list[i]);
