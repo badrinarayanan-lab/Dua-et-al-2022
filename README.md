@@ -6,6 +6,6 @@ Mitochondria are dynamic organelles that play essential roles in cell growth and
 
 doi: https://doi.org/10.1101/2022.02.08.479562 
 
-[Fiji Macros](!https://github.com/badrinarayanan-lab/Dua-et-al-2022/tree/main/Fiji%20Macros) written by Nitish Dua
+[Fiji Macros](https://github.com/badrinarayanan-lab/Dua-et-al-2022/tree/main/Fiji%20Macros) written by Nitish Dua
 
-[Matlab Script](!https://github.com/badrinarayanan-lab/Dua-et-al-2022/tree/main/MATLAB%20code/Foci%20detection) written by Varshit Dusad
+[Matlab Script](https://github.com/badrinarayanan-lab/Dua-et-al-2022/tree/main/MATLAB%20code/Foci%20detection) written by Varshit Dusad
