@@ -1,5 +1,5 @@
 parent_dir = ""
-out_dir_mNeon= ""
+out_dir= ""
 list= getFileList (parent_dir);
 for (i=0; i<list.length; i++){
 	open(parent_dir+list[i]);
@@ -13,7 +13,7 @@ for (i=0; i<list.length; i++){
     run("Convert to Mask");
     run("Despeckle");
     run("Remove Outliers...", "radius=2 threshold=50 which=Dark");
-	saveAs("tiff", out_dir_mNeon + list[i]);
+	saveAs("tiff", out_dir + list[i]);
 	run("Close All");
 }
 
