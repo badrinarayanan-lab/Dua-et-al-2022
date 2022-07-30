@@ -1,6 +1,6 @@
-par_dir_mito = "C:/Users/LAB Admin/Desktop/Today/C1/"
-par_dir_ROI ="C:/Users/LAB Admin/Desktop/Today/ROI/"
-out_dir="C:/Users/LAB Admin/Desktop/Today/O/"
+par_dir_mito = ""
+par_dir_ROI =""
+out_dir=""
 list1= getFileList(par_dir_mito)
 list2 = getFileList (par_dir_ROI)
 for (i=0; i<list1.length; i++)
