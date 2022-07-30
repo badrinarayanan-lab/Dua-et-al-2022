@@ -1,7 +1,7 @@
 parent_dir = ""
-out_dir_mNeon = ""
-out_dir_DAPI = ""
-out_dir_Phase = ""
+out_dir_1 = ""
+out_dir_2 = ""
+out_dir_3 = ""
 all_dir = getFileList(parent_dir);
 for(j=0;j<all_dir.length;j++){
 	directory = parent_dir+all_dir[j];
@@ -11,11 +11,11 @@ for(j=0;j<all_dir.length;j++){
 		open(directory+list[i]);
 		}
 	run("Images to Stack", "name= c1 title=c1 use");
-	saveAs("tiff", out_dir_mNeon+"mNeon"+name);
+	saveAs("tiff", out_dir_1 +"mNeon"+name);
 	run("Images to Stack", "name= c2 title=c2 use");
-	saveAs("tiff", out_dir_DAPI +name+"c2");
+	saveAs("tiff", out_dir_2 +name+"c2");
 	run("Images to Stack", "name= c3 title=c3 use");
-	saveAs("tiff", out_dir_Phase +name+"c3");
+	saveAs("tiff", out_dir_3 +name+"c3");
 	run("Close All");
 	}
 	
